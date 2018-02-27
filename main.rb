@@ -14,8 +14,7 @@ loop do
     file[current_position[:y]][current_position[:x]] = key
     Curses.clear
     file.each{|line|Curses.addstr(line)}
-    Curses.setpos(current_position[:y], current_position[:x])
-
+    # Curses.setpos(current_position[:y], current_position[:x])
     `cp /dev/null #{self_file_name}`
     File.open(self_file_name, 'w') do |f|
       file.each{|line|f.puts line}
