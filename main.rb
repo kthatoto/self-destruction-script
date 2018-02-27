@@ -14,7 +14,13 @@ loop do
     Curses.clear
     file.each{|line|Curses.addstr(line)}
     Curses.setpos(current_position[:y], current_position[:x])
-    next
+
+    `cp /dev/null #{self_file_name}`
+    File.open(self_file_name, 'w') do |f|
+      file.each{|line|f.puts line}
+    end
+    Process.exec("ruby #{self_file_name}")
+    exit
   end
   break if key == 'q'
   Curses.setpos(
@@ -24,7 +30,3 @@ loop do
   mode = :replace if key == 'r'
 end
 Curses.close_screen
-`cp /dev/null #{self_file_name}`
-File.open(self_file_name, 'w') do |f|
-  file.each{|line|f.puts line}
-end
