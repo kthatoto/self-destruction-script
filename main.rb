@@ -2,8 +2,8 @@ require 'rubygems'; require 'bundler/setup'; require 'curses'; require 'pp'
 self_file_name = File.basename(__FILE__)
 file = File.read(self_file_name).each_line.to_a
 Curses.init_screen; Curses.noecho
-Curses.setpos(ARGV[0].to_i, ARGV[1].to_i) if ARGV[1]
 file.each{|line|Curses.addstr(line)}
+Curses.setpos(ARGV[0].to_i, ARGV[1].to_i) if ARGV[1]
 move_keys = {h: {y: 0, x: -1}, j: {y: 1, x: 0}, k: {y: -1, x: 0}, l: {y: 0, x: 1}}
 mode = nil
 loop do
@@ -14,7 +14,6 @@ loop do
     file[current_position[:y]][current_position[:x]] = key
     Curses.clear
     file.each{|line|Curses.addstr(line)}
-    # Curses.setpos(current_position[:y], current_position[:x])
     `cp /dev/null #{self_file_name}`
     File.open(self_file_name, 'w') do |f|
       file.each{|line|f.puts line}
