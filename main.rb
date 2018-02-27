@@ -1,11 +1,13 @@
 require 'rubygems'; require 'bundler/setup'; require 'curses'; require 'pp';
 Curses.init_screen
 Curses.noecho
-File.read(File.basename(__FILE__)).each_line{|line| Curses.addstr(line)}
+self_file_name = File.basename(__FILE__)
+File.read(self_file_name).each_line{|line| Curses.addstr(line)}
 move_keys = {
   h: {y:  0, x: -1}, j: {y:  1, x:  0},
   k: {y: -1, x:  0}, l: {y:  0, x:  1}
 }
+mode = nil
 loop do
   key = Curses.getch
   current_position = {y: Curses.stdscr.cury, x: Curses.stdscr.curx}
@@ -16,6 +18,15 @@ loop do
       current_position[:x] + move_keys[key.to_sym][:x]
     )
   end
+  if key == 'd'
+    if mode == :deleting
+      Curses.deleteln
+    else
+      mode = :deleting
+    end
+  end
+  if key == 'r'
+  end
+  `cat #{self_file_name} > #{self_file_name}`
 end
-Curses.close_scree
-`echo test >> main.rb`
+Curses.close_screen
