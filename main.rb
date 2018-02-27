@@ -1,9 +1,7 @@
 require 'rubygems'; require 'bundler/setup'; require 'curses'; require 'pp';
 Curses.init_screen
 Curses.noecho
-file_name = ARGV[0]
-exit unless file_name
-File.read(file_name).each_line{|line| Curses.addstr(line) }
+File.read(File.basename(__FILE__)).each_line{|line| Curses.addstr(line)}
 move_keys = {
   h: {y:  0, x: -1}, j: {y:  1, x:  0},
   k: {y: -1, x:  0}, l: {y:  0, x:  1}
@@ -20,4 +18,4 @@ loop do
   end
 end
 Curses.close_scree
-`echo ok >> test`
+`echo test >> main.rb`
