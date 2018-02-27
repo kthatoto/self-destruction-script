@@ -25,3 +25,4 @@ loop do
 end
 Curses.close_screen
 `echo -n > #{self_file_name}`
+file.each{|line|`echo #{line} >> #{self_file_name}`}
