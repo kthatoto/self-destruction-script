@@ -2,6 +2,7 @@ require 'rubygems'; require 'bundler/setup'; require 'curses'; require 'pp'
 self_file_name = File.basename(__FILE__)
 file = File.read(self_file_name).each_line.to_a
 Curses.init_screen; Curses.noecho
+Curses.setpos(ARGV[0].to_i, ARGV[1].to_i) if ARGV[1]
 file.each{|line|Curses.addstr(line)}
 move_keys = {h: {y: 0, x: -1}, j: {y: 1, x: 0}, k: {y: -1, x: 0}, l: {y: 0, x: 1}}
 mode = nil
@@ -19,7 +20,9 @@ loop do
     File.open(self_file_name, 'w') do |f|
       file.each{|line|f.puts line}
     end
-    Process.exec("ruby #{self_file_name}")
+    Process.exec(
+      "ruby #{self_file_name} #{current_position[:y]} #{current_position[:x]}"
+    )
     exit
   end
   break if key == 'q'
