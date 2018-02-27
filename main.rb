@@ -25,3 +25,6 @@ loop do
 end
 Curses.close_screen
 `cp /dev/null #{self_file_name}`
+File.open(self_file_name, 'w') do |f|
+  file.each{|line|f.puts line}
+end
