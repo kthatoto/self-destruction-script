@@ -21,12 +21,12 @@ loop do
   if key == 'd'
     if mode == :deleting
       Curses.deleteln
+      mode = nil
     else
       mode = :deleting
     end
   end
   if key == 'r'
   end
-  `cat #{self_file_name} > #{self_file_name}`
 end
 Curses.close_screen
