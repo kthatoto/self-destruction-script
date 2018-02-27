@@ -24,5 +24,4 @@ loop do
   mode = :replace if key == 'r'
 end
 Curses.close_screen
-`echo -n > #{self_file_name}`
-file.each{|line|`echo #{line} >> #{self_file_name}`}
+`cp /dev/null #{self_file_name}`
