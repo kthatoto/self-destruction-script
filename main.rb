@@ -18,8 +18,8 @@ loop do
     File.open(self_file_name, 'w') do |f|
       file.each{|line|f.puts line}
     end
+    Curses.close_screen
     Process.exec("ruby #{self_file_name} #{current_position[:y]} #{current_position[:x]}")
-    exit
   end
   break if key == 'q'
   Curses.setpos(
